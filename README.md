@@ -1,12 +1,12 @@
-# PageLines Plugin Shortcodes #
+# PageLines Plugin Standards
 
-Supercharge any WordPress theme with powerful shortcodes.
+Short description of the plugin.
 
-## Description ##
+## Description
 
-PageLines Wordpress Shortcodes provides an extensive amount of shortcodes. With this premium plugin you can create tabs, toggles, buttons, reponsive videos, chart bars, maps, alert boxes and so much more with just a few clicks via WordPress. Add these premium features to enhance any theme.
+Detailed description of the plugin.
 
-## Changelog ##
+## Changelog
 
-### 1.0 ###
+### 1.0
 * Initial Release
