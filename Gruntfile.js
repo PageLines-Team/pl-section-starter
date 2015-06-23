@@ -73,7 +73,7 @@ module.exports = function(grunt) {
       }
     });
     // Default grunt task,
-    grunt.registerTask( 'default', 	[ 'clean', 'less', 'watch'] );
+    grunt.registerTask( 'default', [ 'clean', 'less', 'watch'] );
     // grunt build task
-    grunt.registerTask( 'build', 		[ 'clean', 'less', 'copy:build', 'buildcontrol'] );
+    grunt.registerTask( 'build', [ 'clean', 'less', 'copy:build', 'buildcontrol'] );
 }
