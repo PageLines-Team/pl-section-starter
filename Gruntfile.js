@@ -1,102 +1,79 @@
+/**
+ * Boilerplate Gruntfile.js
+ */
 module.exports = function(grunt) {
 
     require('time-grunt')(grunt);
     require('load-grunt-tasks')(grunt);
 
+    /**
+     * Setup some basic variables to use later
+     */
     var pkg = grunt.file.readJSON('package.json');
+    var slug = process.cwd().substr(process.cwd().lastIndexOf('/') + 1);
+    var remote = 'git@github.com:PageLines-Team/' + slug + '.git'
+    var build_msg = grunt.option('message') || ''
 
-		var slug = process.cwd().substr(process.cwd().lastIndexOf('/') + 1);
-		var remote = 'git@github.com:PageLines-Team/' + slug + '.git'
-
-
+    /**
+     * Main Grunt config start
+     */
     grunt.initConfig({
-      pkg: pkg,
 
-      clean: [ 'ui/js/*', 'dist', 'src' ],
-      
+      // clean task, an array of folders to clean
+      clean: ['dist','src'],
+      // watch task, in this case we just watch one file build.less and when it changes run less compiler
       watch: {
-				less: {
-					// what files/folder we watching?
-					files: [ 'ui/less/*.less' ],
+        lessMain: {
+          // what files/folder we watching?
+          files: [ 'build.less' ],
           // tasks to run in order when something changes
-          tasks: ['less'],
-          options: {
-              nospawn: true,
-          }
-        }, 
-        js: {
-          files: ['ui/scripts/*'], 
-          tasks: ['concat'], 
+          tasks: ['less:compileMain'],
           options: {
               nospawn: true,
           }
         }
-      },
+        },
+      // The LESS task, compiles build.less into a usable style.css file
       less: {
-				compileMain: {
-					src:   'ui/less/build.less',
-					dest: 'ui/css/style.css',
-					options: {
-						strictMath: true,
-						sourceMap: false                }
-					}
-			},
-      wp_readme_to_markdown: {
-          your_target: {
-              files: {
-                'README.md': 'readme.txt'
-              },
-          },
-        },
-
-      concat: {
-        options: {
-          stripBanners: true,
-          sourceMap:    false,
-          separator:    '\n\n /* -------------------- */ \n\n',
-        },
-        common: {
-          src: ['ui/scripts/*.js'],
-          dest: 'ui/js/connect.js',
-        },
-        codeMirror: {
-            src: ['ui/plugins/codemirror/*.js', '!ui/plugins/codemirror/pl.codemirror.js'],
-            dest: 'ui/plugins/codemirror/pl.codemirror.js',
-        },
+        compileMain: {
+          src: 'build.less',
+          dest: 'style.css',
+          options: {
+            strictMath: true,
+            sourceMap: false                }
+          }
       },
-			
-			buildcontrol: {
-			    options: {
-			      dir: 'dist',
-			      commit: true,
-			      push: true,
-			      message:  grunt.option('message') + ' [Built from commit "%sourceCommit%"]'
-			    },
-			    remote: {
-			      options: {
-			        remote: remote,
-			        branch: 'build'
-			      }
-			    }
-			  },
-				copy: {
-				    build: {
-				      files: [
-				        // includes files within path
-				        {
-				          expand:   true,
-				          src:      [ '**', pkg.copyIgnores ],
-				          dest:     'dist/',
-				          filter:   'isFile'
-				        }
-				      ]
-				    }
-				  }
+      // copy task, copy all files into a dist folder.
+      // uses pkg.copyIgnores variable which is an array of files and folders to ignore.
+      // They are set in package.json folder
+      copy: {
+        build: {
+          files: [ {
+            expand: true,
+            src: [ '**', pkg.copyIgnores ],
+            dest: 'dist/',
+            filter: 'isFile'
+          } ]
+        }
+      },
+      // build task, pushes contents of dist folder to remote 'build' branch.
+      buildcontrol: {
+        options: {
+          dir: 'dist',
+          commit: true,
+          push: true,
+          message: build_msg + ' [Built from commit "%sourceCommit%"]'
+        },
+        remote: {
+          options: {
+            remote: remote,
+            branch: 'build'
+          }
+        }
+      }
     });
-
-    grunt.registerTask( 'default', 	[ 'clean', 'less', 'concat', 'wp_readme_to_markdown', 'watch'] );
-		
-		grunt.registerTask( 'build', 		[ 'clean', 'less', 'concat', 'wp_readme_to_markdown',  'copy:build', 'buildcontrol'] );
-
-    
+    // Default grunt task,
+    grunt.registerTask( 'default', 	[ 'clean', 'less', 'watch'] );
+    // grunt build task
+    grunt.registerTask( 'build', 		[ 'clean', 'less', 'copy:build', 'buildcontrol'] );
 }
