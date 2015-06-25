@@ -64,16 +64,24 @@ module.exports = function(grunt) {
           push: true,
           message: build_msg + ' [Built from commit "%sourceCommit%"]'
         },
-        remote: {
+        production: {
           options: {
             remote: remote,
             branch: 'build'
+          }
+        },
+        staging: {
+          options: {
+            remote: remote,
+            branch: 'staging'
           }
         }
       }
     });
     // Default grunt task,
     grunt.registerTask( 'default', [ 'clean', 'less', 'watch'] );
-    // grunt build task
-    grunt.registerTask( 'build', [ 'clean', 'less', 'copy:build', 'buildcontrol'] );
+    // grunt build task for production
+    grunt.registerTask( 'build', [ 'clean', 'less', 'copy:build', 'buildcontrol:production'] );
+    // grunt build task for staging
+    grunt.registerTask( 'stage', [ 'clean', 'less', 'copy:build', 'buildcontrol:staging'] );
 }
