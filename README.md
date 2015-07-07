@@ -1,3 +1,1 @@
-## Description
-
-Detailed description of the plugin.
+Detailed description of the plugin using markdown.
