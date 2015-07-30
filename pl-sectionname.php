@@ -8,10 +8,10 @@
 	Filter: 			localsocial
 */
 
-if( ! class_exists('PageLinesSection') )
+if( ! class_exists('PL_Section') )
 	return;
 
-class PLSectionNamePlugin extends PageLinesSection {
+class PLSectionNamePlugin extends PL_Section {
 
 	function section_persistent(){
 
