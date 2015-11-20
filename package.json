@@ -3,7 +3,8 @@
   "name": "PageLines",
   "email": "hello@pagelines.com",
   "homepage": "http://www.pagelines.com",
-  "license": "GPLv3",
+  "license": "GPL-3.0",
+  "private": "true",
   "version": "1.0.0",
   "engines": {
     "node": ">= 0.10.0"
@@ -13,7 +14,6 @@
     "!dist",
     "!Gruntfile.js",
     "!gulpfile.js",
-    "!framework.sublime*",
     "!.gitignore",
     "!**/node_modules/**",
     "!package.json",

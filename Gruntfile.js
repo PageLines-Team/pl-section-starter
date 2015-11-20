@@ -82,6 +82,4 @@ module.exports = function(grunt) {
     grunt.registerTask( 'default', [ 'clean', 'less', 'watch'] );
     // grunt build task for production
     grunt.registerTask( 'build', [ 'clean', 'less', 'copy:build', 'buildcontrol:production'] );
-    // grunt build task for staging
-    grunt.registerTask( 'stage', [ 'clean', 'less', 'copy:build', 'buildcontrol:staging'] );
 }
