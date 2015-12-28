@@ -11,11 +11,11 @@
 
   PageLines:   PL_Section_Starter
 
-  Filter:      component
+  Tags:         starter
   
-  Category:     
+  Category:     framework, sections
 
-  Tags:
+  Filter:       component
 
 */
 
