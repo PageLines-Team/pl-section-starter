@@ -42,7 +42,7 @@ class PL_Section_Starter extends PL_Section {
   function section_styles(){
 
     /** Include the sample script */
-    pl_script( $this->id, $this->base_url . '/starter.js' );
+    pl_script( $this->id, plugins_url( 'starter.js', __FILE__ ) );
 
   }
 
